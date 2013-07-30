@@ -6,12 +6,14 @@ then
   fail "missing option \"token\", aborting"
 fi
 
-if [ -n "$WERKCER_GH_PAGES_PROJECT" ]
+if [ -n "$WERKCER_GH_PAGES_REPO" ]
 then
-  remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$WERCKER_GH_PAGES_PROJECT.git"
+  repo="$WERCKER_GH_PAGES_REPO"
 else
-  remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git"
+  repo="$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY"
 fi
+info "github repo is \"$repo\""
+remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$repo.git"
 
 # if directory provided, cd to it
 if [ -f "$WERCKER_OUTPUT_DIR/$WERCKER_GH_PAGES_BASEDIR" ]
