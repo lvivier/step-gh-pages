@@ -6,21 +6,17 @@ then
   fail "missing option \"token\", aborting"
 fi
 
-if [ -n "$WERKCER_GH_PAGES_REPO" ]
+if [ ! -n "$WERCKER_GH_PAGES_REPO" ]
 then
-  repo="$WERCKER_GH_PAGES_REPO"
-else
-  repo="$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY"
+  fail "missing option \"repo\", aborting"
 fi
-info "github repo is \"$repo\""
-remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$repo.git"
+
+remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$WERCKER_GH_PAGES_REPO.git"
 
 # if directory provided, cd to it
-if [ -f "$WERCKER_OUTPUT_DIR/$WERCKER_GH_PAGES_BASEDIR" ]
+if [ -d "$WERCKER_GH_PAGES_BASEDIR" ]
 then
-  cd $WERCKER_OUTPUT_DIR/$WERCKER_GH_PAGES_BASEDIR
-else
-  cd $WERCKER_OUTPUT_DIR
+  cd $WERCKER_GH_PAGES_BASEDIR
 fi
 
 # remove existing commit history

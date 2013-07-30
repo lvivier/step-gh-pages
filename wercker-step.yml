@@ -1,5 +1,5 @@
 name: gh-pages
-version: 0.0.3
+version: 0.0.6
 description: deploy to github pages
 keywords:
   - github
