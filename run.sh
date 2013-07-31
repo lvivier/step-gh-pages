@@ -6,12 +6,21 @@ then
   fail "missing option \"token\", aborting"
 fi
 
-if [ ! -n "$WERCKER_GH_PAGES_REPO" ]
+# use repo option or guess from git info
+if [ -n "$WERCKER_GH_PAGES_REPO" ]
 then
+  repo="$WERCKER_GH_PAGES_REPO"
+elif [ 'github.com' == "$WERCKER_GIT_DOMAIN" ]
+then
+  repo="$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY"
+else
   fail "missing option \"repo\", aborting"
 fi
 
-remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$WERCKER_GH_PAGES_REPO.git"
+info "using github repo \"$repo\""
+
+# remote path
+remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$repo.git"
 
 # if directory provided, cd to it
 if [ -d "$WERCKER_GH_PAGES_BASEDIR" ]
