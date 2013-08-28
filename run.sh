@@ -37,6 +37,14 @@ then
   echo $WERCKER_GH_PAGES_DOMAIN > CNAME
 fi
 
+
+# setup branch
+branch="gh-pages"
+if [[ "$WERCKER_GH_PAGES_REPO" =~ $WERCKER_GIT_OWNER\.github\.(io|com)$ ]]; then
+	branch="master"
+fi
+
+
 # init repository
 git init
 
@@ -45,7 +53,7 @@ git config user.name "werckerbot"
 
 git add .
 git commit -m "deploy from $WERCKER_STARTED_BY"
-result="$(git push -f $remote master:gh-pages)"
+result="$(git push -f $remote master:$branch)"
 
 if [[ $? -ne 0 ]]
 then
