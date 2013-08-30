@@ -40,7 +40,7 @@ fi
 
 # setup branch
 branch="gh-pages"
-if [[ "$WERCKER_GH_PAGES_REPO" =~ $WERCKER_GIT_OWNER\.github\.(io|com)$ ]]; then
+if [[ "$repo" =~ $WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)$ ]]; then
 	branch="master"
 fi
 
