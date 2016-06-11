@@ -32,18 +32,17 @@ fi
 rm -rf .git
 
 # generate cname file
-if [ -n $WERCKER_GH_PAGES_DOMAIN ]
+if [ -n "$WERCKER_GH_PAGES_DOMAIN" ]
 then
   echo $WERCKER_GH_PAGES_DOMAIN > CNAME
 fi
 
-
 # setup branch
 branch="gh-pages"
-if [[ "$repo" =~ $WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)$ ]]; then
-	branch="master"
+if echo $repo | grep -qE "$WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)"
+then
+  branch="master"
 fi
-
 
 # init repository
 git init
@@ -55,7 +54,7 @@ git add .
 git commit -m "deploy from $WERCKER_STARTED_BY"
 result="$(git push -f $remote master:$branch)"
 
-if [[ $? -ne 0 ]]
+if [ $? -ne 0 ]
 then
   warning "$result"
   fail "failed pushing to github pages"
