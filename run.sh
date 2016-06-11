@@ -21,7 +21,7 @@ remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$repo.git"
 
 # if directory provided, cd to it
 if [ -d "$WERCKER_GH_PAGES_BASEDIR" ]; then
-  cd $WERCKER_GH_PAGES_BASEDIR
+  cd "$WERCKER_GH_PAGES_BASEDIR"
 fi
 
 # remove existing commit history
@@ -29,12 +29,12 @@ rm -rf .git
 
 # generate cname file
 if [ -n "$WERCKER_GH_PAGES_DOMAIN" ]; then
-  echo $WERCKER_GH_PAGES_DOMAIN > CNAME
+  echo "$WERCKER_GH_PAGES_DOMAIN" > CNAME
 fi
 
 # setup branch
 branch="gh-pages"
-echo $repo | grep -qE "$WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)"
+echo "$repo" | grep -qE "$WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)"
 if [ $? -eq 0 ]; then
   branch="master"
 fi
@@ -47,7 +47,7 @@ git config user.name "werckerbot"
 
 git add .
 git commit -m "deploy from $WERCKER_STARTED_BY"
-result="$(git push -f $remote master:$branch)"
+result=$(git push -f "$remote" master:"$branch")
 
 if [ $? -ne 0 ]; then
   warning "$result"
