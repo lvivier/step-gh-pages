@@ -5,3 +5,17 @@ keywords:
   - github
   - pages
   - deploy
+properties:
+  basedir:
+    type: string
+    required: false
+  domain:
+    type: string
+    required: false
+  repo:
+    type: string
+    required: false
+  token:
+    type: string
+    required: true
+
