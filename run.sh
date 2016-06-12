@@ -20,8 +20,12 @@ info "using github repo \"$repo\""
 remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$repo.git"
 
 # if directory provided, cd to it
-if [ -d "$WERCKER_GH_PAGES_BASEDIR" ]; then
-  cd "$WERCKER_GH_PAGES_BASEDIR"
+if [ -n "$WERCKER_GH_PAGES_BASEDIR" ]; then
+  if [ -d "$WERCKER_GH_PAGES_BASEDIR" ]; then
+    cd "$WERCKER_GH_PAGES_BASEDIR"
+  else
+    fail "\"basedir\" do not exist. was the build step performed?"
+  fi
 fi
 
 # remove existing commit history
