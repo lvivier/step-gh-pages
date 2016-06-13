@@ -1,5 +1,5 @@
 name: gh-pages
-version: 0.2.2
+version: 0.2.3
 description: deploy to github pages
 keywords:
   - github
@@ -7,6 +7,9 @@ keywords:
   - deploy
 properties:
   basedir:
+    type: string
+    required: false
+  branch:
     type: string
     required: false
   domain:
