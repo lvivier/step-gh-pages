@@ -24,7 +24,7 @@ if [ -n "$WERCKER_GH_PAGES_BASEDIR" ]; then
   if [ -d "$WERCKER_GH_PAGES_BASEDIR" ]; then
     cd "$WERCKER_GH_PAGES_BASEDIR"
   else
-    fail "\"basedir\" do not exist. was the build step performed?"
+    fail "\"basedir\" does not exist, was the build step performed?"
   fi
 fi
 
