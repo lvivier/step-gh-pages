@@ -36,11 +36,15 @@ if [ -n "$WERCKER_GH_PAGES_DOMAIN" ]; then
   echo "$WERCKER_GH_PAGES_DOMAIN" > CNAME
 fi
 
-# setup branch
-branch="gh-pages"
-echo "$repo" | grep -qE "$WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)"
-if [ $? -eq 0 ]; then
-  branch="master"
+# allow overriding the branch, e.g. for use with a staging env
+if [ -n "$WERCKER_GH_PAGES_BRANCH" ]; then
+  branch="$WERCKER_GH_PAGES_BRANCH"
+else
+  branch="gh-pages"
+  echo "$repo" | grep -qE "$WERCKER_GIT_OWNER\/$WERCKER_GIT_OWNER\.github\.(io|com)"
+  if [ $? -eq 0 ]; then
+      branch="master"
+  fi
 fi
 
 # init repository
