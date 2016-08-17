@@ -55,7 +55,7 @@ git config user.name "werckerbot"
 
 git add .
 git commit -m "deploy from $WERCKER_STARTED_BY"
-result=$(git push -f "$remote" master:"$branch")
+result=$(git push -f "$remote" master:"$branch" 2> /dev/null)
 
 if [ $? -ne 0 ]; then
   warning "$result"
@@ -63,4 +63,3 @@ if [ $? -ne 0 ]; then
 else
   success "pushed to github pages"
 fi
-
